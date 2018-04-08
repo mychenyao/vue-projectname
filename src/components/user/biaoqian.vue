@@ -27,17 +27,26 @@
                       <span>确定</span>
                       <span>取消</span>
                     </div>
+
                  </div>
          </div>
+
       </div>
 </template>
 <script>
+//  import {mapState,mapMutations,mapGetters,mapActions} from 'vuex'
   export default {
     data(){
       return{
         biaoqianName : "",  //输入的标签
         biaoqianArray : [],//显示的标签
       }
+    },
+//    computed:{
+//      ...mapGetters(["biaoqian"])
+//    },
+    created(){
+       console.log(this.$store.state)
     },
     methods:{
       yesClick(){

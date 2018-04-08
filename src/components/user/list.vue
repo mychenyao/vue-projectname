@@ -29,7 +29,7 @@
                 </el-input>
               </div>
             </div>
-           <div class="btn_biaoqian" @click="dabiaoqian">打标签</div>
+           <div class="btn_biaoqian" @click="dabiaoqian(tableListData.userInfos)">打标签</div>
         <!--查询按钮-->
             <div class="btn_inquiry" @click="quiry">
               查询
@@ -314,12 +314,20 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
            console.log(_this.checked)
 
        },
-       dabiaoqian(){ //打标签
-          if(this.isCheckboxList.length ==0){
-                  return alert("请先选择用户")
-          }else{
-            this.biaoqianShow = true;
-          }
+       dabiaoqian(list){ //打标签
+         let newAr=[];
+         list.forEach((v,i)=>{
+           if(this.isCheckboxList[i]){
+             newAr.push(v)
+           }
+         });
+         if(newAr.length==0){
+           alert("请选择需要打标签的用户");
+           return;
+         }else{
+           this.biaoqianShow = true;
+         }
+
 
        },
         open2(item) {
