@@ -465,8 +465,6 @@ Vue.filter('price4Show2',function(input){
 Vue.filter('discountsFeeShow2',function(input){
   let discountsFee = 0;
   input.forEach((v)=>{
-    console.log("--------------------");
-    console.log(v);
     if("1"==v.isSecondPayment&&0==v.price2){
     }else {
       if(v.status==0) {
@@ -484,7 +482,6 @@ Vue.filter('totalFeeShow2',function(input,a){
   if(a==undefined){
     a=0;
   }
-  // console.log(a,"input");
   let visitFee = 0;
   let serviceFee = 0;
   let price3Fee = 0;
@@ -684,10 +681,6 @@ return "兼职师傅";
 }
 return "无"
 });
-
-
-
-
 
 Vue.filter('isEndShow',function(input){
   if("1"==input){
@@ -908,5 +901,8 @@ Vue.filter('adstate',function(input){
       }else if(3===input){
         return "时间冲突";
       }
+      return "无"
+});
+  Vue.filter('fdf',function(input){   //test
       return "无"
 });
