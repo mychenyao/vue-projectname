@@ -65,7 +65,6 @@ export default {
       font-family: MicrosoftYaHei;
       font-size: 14px;
       overflow: hidden;
-
       letter-spacing: 0;
       width:60%;
       border-radius: 10px;
