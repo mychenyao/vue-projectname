@@ -18,8 +18,6 @@
         },
         methods: {},
         created() {
-          console.log(this.item)
-          console.log(this.name)
         }
     }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div id="app">
       <div class="container">
-            <biaoqian v-show="biaoqianShow"></biaoqian>
+            <biaoqian v-show="biaoqianShow" :str="str"></biaoqian>
             <div class="user_sum">
               <user-sum class="sum" :suerSum="item" v-for="(item,index) in userSum" :key="index"></user-sum>
             </div>
@@ -29,7 +29,7 @@
                 </el-input>
               </div>
             </div>
-           <div class="btn_biaoqian" @click="dabiaoqian">打标签</div>
+           <div class="btn_biaoqian" @click="dabiaoqian(tableListData.userInfos)">打标签</div>
         <!--查询按钮-->
             <div class="btn_inquiry" @click="quiry">
               查询
@@ -164,6 +164,7 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
         currentPage4: 1,
         checked:false, //多选
         isCheckboxList:[], //反选
+        str : "", //id存储
         theadsName:[
             "序号",
             "绑定手机",
@@ -291,11 +292,9 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
        workChang(data,isBool){ //全选
              let _this = this;
             _this.isCheckboxList.forEach((item, index) => {
-              console.log(_this.isCheckboxList)
                 _this.$set(_this.isCheckboxList, index, isBool);
             });
             _this.tableListData.userInfos.forEach((item1, index1) => {
-              console.log(item1)
                 _this.$set(_this.tableListData.userInfos[index1], 'isCheckboxList', isBool);
             })
        },
@@ -311,14 +310,25 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
               }
            };
            _this.checked = isCheck;
-           console.log(_this.checked)
 
        },
-       dabiaoqian(){ //打标签
-          if(this.isCheckboxList.length ==0){
-                  return alert("请先选择用户")
-          }else{
-            this.biaoqianShow = true;
+       dabiaoqian(list){ //打标签
+         let newAr=[];
+         list.forEach((v,i)=>{
+           if(this.isCheckboxList[i]){
+             newAr.push(v)
+           }
+         });
+         console.log(newAr)
+         if(newAr.length==0){
+           alert("请选择需要打标签的用户");
+           return;
+         }else{
+           this.biaoqianShow = true;
+         }
+          for(let i= 0 ; i<newAr.length; i++){
+                console.log(newAr[i])
+                this.str +=newAr[i].id+",";
           }
 
        },

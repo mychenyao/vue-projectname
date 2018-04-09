@@ -27,6 +27,16 @@
           </el-select>
         </div>
         <div class="list">
+          一级分类 :
+          <el-select id="yiiId" v-model="yiji" filterable placeholder="请选择">
+              <el-option
+                    v-for="item in yijifenlei"
+                   :key="item.id"
+                   :label="item.name"
+                   :value="item.id">
+                </el-option>
+          </el-select>
+          <br/>
           分类 :
           <el-cascader id="labelId"
                        @change="changeSelector2"
@@ -174,6 +184,8 @@
     },
     data() {
       return {
+        yiji:"",
+        yijifenlei:[], //一级分类
         isFittings:{
           isShow:false
         },
@@ -271,6 +283,13 @@
           }
         });
       });
+      
+      let urlOne=this.$common.apidomain+'/common/findflabelbusinessname';
+      this.$http.get(urlOne).then(res=>{
+         console.log(res)
+         this.yijifenlei = res.data.result;
+         console.log(this.yijifenlei)
+      })
     },
     methods: {
       fittings(item){
@@ -309,6 +328,7 @@
         queryFun.selectorArea.call(this,item,values,SourceTypeValue,"value");
       },
       changeSelector2(value){
+        console.log(this.labeloptions2);
         this.labeloptions2.forEach((v,i)=>{
           if(value[0]===v.label){
             this.labelId=v.id;

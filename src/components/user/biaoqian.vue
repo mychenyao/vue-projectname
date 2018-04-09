@@ -4,49 +4,145 @@
 
         </div>
          <div class="biaoqian_box">
-                <div class="biaoqian_boxTop">打标签</div>
+                <div class="biaoqian_boxTop">打标签
+                </div>
                 <div class="biaoqian_center">
                       <input type="text" placeholder="请输入标签名字" v-model="biaoqianName">
                        <button @click="yesClick">确定</button>
                 </div>
                  <div class="biaoqian_number">
                    <ul>
-                     <!--<li v-for="(item,index) in biaoqianArray"><el-checkbox></el-checkbox><span>{{item.name}}</span><span>X</span><span>({{item.number}})</span></li>-->
-                     <li><el-checkbox></el-checkbox><span>你好</span><span>X</span><span>(0)</span></li>
-                     <li><el-checkbox></el-checkbox><span>你好</span><span>X</span><span>(0)</span></li>
-                     <li><el-checkbox></el-checkbox><span>你好</span><span>X</span><span>(0)</span></li>
-                     <li><el-checkbox></el-checkbox><span>你好</span><span>X</span><span>(0)</span></li>
-                     <li><el-checkbox></el-checkbox><span>你好</span><span>X</span><span>(0)</span></li>
-                     <li><el-checkbox></el-checkbox><span>你好</span><span>X</span><span>(0)</span></li>
-
+                     <li v-for="(item,index) in biaoqianArray"><span @click="spanClick(item,index)" 
+                        :class="{spanActive:spanIndex == index}"></span>
+                        <input type="text" v-model="item.name" @blur="blurClick(item,index)"/>
+                        <span @click="shanchu(item,index)">X</span>
+                        <span>({{item.serviceNumber}})</span>
+                     </li>
                    </ul>
 
                  </div>
                  <div class="biaoqian_footer">
                     <div>
-                      <span>确定</span>
-                      <span>取消</span>
+                      <span @click="OneYesClick">确定</span>
+                      <span @click="quxiao">取消</span>
                     </div>
+
                  </div>
          </div>
+
       </div>
 </template>
 <script>
+//  import {mapState,mapMutations,mapGetters,mapActions} from 'vuex'
   export default {
+    props:{
+      str:String    //要传的id
+    },
     data(){
       return{
         biaoqianName : "",  //输入的标签
         biaoqianArray : [],//显示的标签
+        spanIndex:-1,  //选中的下标
+        lableID : "",  // 单选选中的id
+        
       }
     },
+    created(){
+     
+      let url = common.apidomain+"/userLabel/findlistUserLabel";
+      this.$http.get(url).then((res)=>{
+        this.biaoqianArray = res.data.result
+      })
+    },
     methods:{
-      yesClick(){
-        this.biaoqianArray.push(this.biaoqianName);
-        let str = this.biaoqianArray.join(",")
-        let url = common.apidomain+"/userLabel/saveUserLabel?name="+str;
-          this.$http.post(url).then((res)=>{
+      yesClick(){ //确定的click
+           if(this.biaoqianName === ""){
+               return alert("标签不能为空")
+           }else{
+               var objParms ={}
+               objParms.name = this.biaoqianName;
+               let url = common.apidomain+"/userLabel/saveUserLabel";
+               this.$http.post(url,objParms).then((res)=>{
+                   if(res.data.code === "0000"){
+                       alert("添加成功")
+                           let url = common.apidomain+"/userLabel/findlistUserLabel";
+                            this.$http.get(url).then((res)=>{
+                              console.log(res)
+                              this.biaoqianArray = res.data.result
+                              console.log(this.biaoqianArray)
+                            })
+                   } else{
+                               alert("添加失败")
+                           }
+                       }).catch((error)=>{
+                          console.log(error)
+                       })
+                }
+      },
+      OneYesClick(){
+        console.log(this.str)
+        if(this.spanIndex == -1){
+           return alert("请选择标签")
+        }else{
+          console.log("wo xuanze ")
+          let objParmOne = {};
+          objParmOne.userIds =this.str;
+          objParmOne.labelId =this.lableID;
+          let url = common.apidomain+"/userInfo/createUserLabel";
+          this.$http.post(url,objParmOne).then((res)=>{
+            console.log(res,99999999999999999)
+          }).catch((error)=>{
+                console.log(error)
+          })
+
+        }
+      },
+      spanClick(v,i){
+         this.spanIndex = i;
+         this.lableID = v.id;
+      },
+      shanchu(v,i){
+        let shanchuObj = {}
+        shanchuObj.state = "1";
+        shanchuObj.id = v.id;
+        let url = common.apidomain+"/userLabel/updateUserLabel";
+         this.$http.post(url,shanchuObj).then((res)=>{
+           if(res.data.code === "0000"){
              console.log(res)
-        })
+               alert("标签删除成功")
+                let url = common.apidomain+"/userLabel/findlistUserLabel";
+                      this.$http.get(url).then((res)=>{
+                        this.biaoqianArray = res.data.result
+                 })
+           }
+            
+          }).catch((error)=>{
+                console.log(error)
+          })
+      },
+      blurClick(v,i){
+        let jiaodianOnj = {};
+        jiaodianOnj.id = v.id;
+        jiaodianOnj.name = v.name;
+         let url = common.apidomain+"/userLabel/updateUserLabel";
+         this.$http.post(url,jiaodianOnj).then((res)=>{
+           if(res.data.code === "0000"){
+             console.log(res)
+               alert("标签修改成功")
+                let url = common.apidomain+"/userLabel/findlistUserLabel";
+                      this.$http.get(url).then((res)=>{
+                        this.biaoqianArray = res.data.result
+                 })
+           }
+            
+          }).catch((error)=>{
+                console.log(error)
+          })
+
+      },
+      quxiao(){
+         location.reload();
+        
       }
     }
   }
@@ -68,21 +164,26 @@
       opacity: 0.3;
     }
     .biaoqian_box{
+     font-family: MicrosoftYaHei;
+      font-size: 14px;
+      overflow: hidden;
+      letter-spacing: 0;
       width:60%;
-      height: 70%;
-      background: #ffffff;
-      position: absolute;
-      left: 20%;
-      top:20%;
-      border: 1px solid black;
+      border-radius: 10px;
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      background:#fff;
+      height:70%;
       .biaoqian_boxTop{
         width: 100%;
         height: 15%;
-        border-bottom:1px solid black ;
         text-align: center;
         line-height:300%;
         font-size: 30px;
-        background: #cccccc;
+        background: #ECECEC;
+        position: relative;
       }
       .biaoqian_center{
         width:100%;
@@ -111,18 +212,27 @@
           width:100%;
           li{
               width:25%;
-              /*background: red;*/
               float: left;
             margin-bottom: 20px;
             span{
               color: black;
             }
           }
+          span:nth-child(1){
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid black;
+          }
+          span:nth-child(1).spanActive{
+            background: #279447;
+          }
 
-          span:nth-child(2){
+          input{
             display: inline-block;
             width:60%;
             margin:0 5px;
+            border: 0;
           }
           span:nth-child(3){
             margin-right: 5px;
@@ -135,23 +245,25 @@
         div{
           width:40%;
           margin-left: 30%;
-          border: 1px solid #2c3e50;
           height:45%;
           margin-top:1.5%;
+          border-radius:5px; 
           span{
             display: inline-block;
             width: 50%;
+            cursor: pointer;
+            line-height: 44px;
             box-sizing: border-box;
             float: left;
-            height: 100%;
             text-align: center;
-            line-height: 400%;
-            background: #cccccc;
-            color: black;
+            background: #279447;
+            color: #ffffff;
+            border-radius:2px; 
           }
           span:nth-child(1){
-            border-right: 1px solid #2c3e50;
-
+            background: #fff;
+            color: black;
+            border: 1px solid #cccccc;
           }
         }
       }
