@@ -28,10 +28,10 @@
         </div>
         <div class="list">
           一级分类 :
-          <el-select id="yiiId" v-model="yiji" filterable placeholder="请选择">
+          <el-select id="yiiId" v-model="yiji" placeholder="请选择" @change="yijifenlei2">
               <el-option
                     v-for="item in yijifenlei"
-                   :key="item.id"
+                   :key="item.name"
                    :label="item.name"
                    :value="item.id">
                 </el-option>
@@ -39,6 +39,7 @@
           <br/>
           分类 :
           <el-cascader id="labelId"
+                       :disabled="isKeXuan"
                        @change="changeSelector2"
                        :options="labeloptions2"
                        change-on-select
@@ -184,6 +185,7 @@
     },
     data() {
       return {
+        isKeXuan:true,   // 分类是否可以选择
         yiji:"",
         yijifenlei:[], //一级分类
         isFittings:{
@@ -195,13 +197,6 @@
 
           },
         },
-//        city: {
-//          name: "所属城市",
-//          key: "cityId",
-//          SourceTypeValue: '', //选中后的
-//          SourceType: this.$store.state.cityData,
-//          keyName:"city"
-//        },
         isAddOrder:{
           title:"xx",
           isShow:false,
@@ -232,9 +227,11 @@
         ],
         labelId: '',
         state:'',
+        hildren: 'cities',
         props: {
-          value: 'label',
-          children: 'cities',
+          value: 'a',
+          label: "b",
+          children: 'beans'
         },
         selectorBehindObj: {
           fullName:"",
@@ -267,11 +264,6 @@
     created(){
 
       this.quiry();
-      let url=this.$apidomain+"/common/findlabelbusinessoptions";
-      this.$http.get(url).then(r=>{
-        let data=r.data;
-        this.labeloptions2 = data.result;
-      })
       let urlCount=this.$apidomain+"/serviceinfo/countList";
       this.$http.get(urlCount).then(r=>{
         let data=r.data;
@@ -286,12 +278,21 @@
       
       let urlOne=this.$common.apidomain+'/common/findflabelbusinessname';
       this.$http.get(urlOne).then(res=>{
-         console.log(res)
          this.yijifenlei = res.data.result;
-         console.log(this.yijifenlei)
       })
     },
     methods: {
+      yijifenlei2(id){
+         let urlTwo=this.$common.apidomain+'/articleinfo/findlabelbusinessbyflabel?id='+id;
+          this.$http.get(urlTwo).then(res=>{
+            if(res.data.code === "0000"){
+              this.isKeXuan = false;
+              this.labeloptions2=[]
+              this.labeloptions2.push(res.data.result)
+            }
+              // console.log(this.labeloptions2)
+          })
+      },
       fittings(item){
           this.isFittings.isShow=true;
           this.isFittings.data=item;
@@ -328,17 +329,23 @@
         queryFun.selectorArea.call(this,item,values,SourceTypeValue,"value");
       },
       changeSelector2(value){
-        console.log(this.labeloptions2);
-        this.labeloptions2.forEach((v,i)=>{
-          if(value[0]===v.label){
-            this.labelId=v.id;
-            v.cities.forEach((e,i)=>{
-              if(e.label===value[1]){
-                this.selectorBehindObj.labelId=e.id
-              }
-            })
-          }
-        });
+            if(value.length === 1){
+              this.selectorBehindObj.labelId=value[0];
+            }else if(value.length === 2){
+              this.selectorBehindObj.labelId=value[1];
+            }else if(value.length === 3){
+              this.selectorBehindObj.labelId=value[2];
+            }else if(value.length === 4){
+              this.selectorBehindObj.labelId=value[3];
+            }else if(value.length === 5){
+              this.selectorBehindObj.labelId=value[4];
+            }else if(value.length === 6){
+              this.selectorBehindObj.labelId=value[5];
+            }else if(value.length === 7){
+              this.selectorBehindObj.labelId=value[6];
+            }
+          
+        
       },
 //新增 start
       route(){

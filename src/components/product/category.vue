@@ -21,6 +21,28 @@
             </el-option>
           </el-select>
         </div>
+        <!-- carter -->
+        <div class="list">
+                一级分类 :
+          <el-select id="yiiId" v-model="yiji" placeholder="请选择" @change="yijifenlei2">
+              <el-option
+                    v-for="item in yijifenlei"
+                   :key="item.name"
+                   :label="item.name"
+                   :value="item.id">
+                </el-option>
+          </el-select>
+          <br/>
+          分类 :
+          <el-cascader id="labelId"
+                       :disabled="isKeXuan"
+                        @change="changeSelector2"
+                       :options="labeloptions2"
+                        change-on-select
+                       :props="props"
+          ></el-cascader>
+         </div>
+         <!-- carter -->
       </div>
       <!--查询按钮-->
       <div class="btn_inquiry" @click="quiry()">
@@ -143,8 +165,17 @@
     },
     data() {
       return {
+        labeloptions2:[],
+        isKeXuan:true,   // 分类是否可以选择
+        yiji:"",
+        yijifenlei:[], //一级分类
         childData:{
           isShow:false,
+        },
+        props: {
+          value: 'a',
+          label: "b",
+          children: 'beans'
         },
         isTags:{
           isShow:false,
@@ -196,6 +227,11 @@
         ],
         name: '',
         selectorBehindObj: {},
+        selectorBehindObjOne:  {
+          fullName:"",
+          labelId:"",
+          state:"",
+        },
         tableListData:{
           pageNum:1,
           pageSize:50,
@@ -212,8 +248,41 @@
 
     created(){
       this.quiry();
+       let urlOne=this.$common.apidomain+'/common/findflabelbusinessname';
+          this.$http.get(urlOne).then(res=>{
+          this.yijifenlei = res.data.result;
+      })
     },
     methods: {
+       yijifenlei2(id){
+         let urlTwo=this.$common.apidomain+'/articleinfo/findlabelbusinessbyflabel?id='+id;
+          this.$http.get(urlTwo).then(res=>{
+            if(res.data.code === "0000"){
+              this.isKeXuan = false;
+              this.labeloptions2=[]
+              this.labeloptions2.push(res.data.result)
+            }
+          })
+      },
+       changeSelector2(value){
+            if(value.length === 1){
+              this.id=value[0];
+            }else if(value.length === 2){
+              this.id=value[1];
+            }else if(value.length === 3){
+              this.id=value[2];
+            }else if(value.length === 4){
+              this.id=value[3];
+            }else if(value.length === 5){
+              this.id=value[4];
+            }else if(value.length === 6){
+              this.id=value[5];
+            }else if(value.length === 7){
+              this.id=value[6];
+            }
+          
+        
+      },
       // 复制url   start
         duplicateId(id){
               const subId=id.substring(0,3);
