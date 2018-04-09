@@ -227,7 +227,6 @@
         },
       add(){
         this.isAdd.officialPartnerId = this.isDetailed.id;
-
         this.isAdd.isShow = true;
       },
       handleDelete(index,item){

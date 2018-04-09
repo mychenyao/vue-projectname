@@ -100,6 +100,12 @@
             <td>
               {{index+1}}
             </td>
+             <td>
+               {{item.type|orderType}}
+             </td>
+             <td>
+                {{item.fLabelBusiness|FLabelBusinessShow}}
+             </td>
             <td>
               {{item.id | placeholder}}
             </td>
@@ -133,9 +139,7 @@
             <td>
               {{item.appointmentDatetime|moment('YYYY-MM-DD HH:mm:ss')}}
             </td>
-            <td>
-              {{item.masterId | placeholder}}
-            </td>
+            
             <td>
               {{item.masterName | placeholder}}
             </td>
@@ -500,6 +504,8 @@
         selectorBehindObj: {},
         theadsName: [
           '序号',
+          "工单类型",
+          "分类",
           '工单号',
           '联系人',
           '联系人手机号',
@@ -507,9 +513,9 @@
 //          '下单手机号',
           '服务区域',
           '预约时间',
-          '师傅编号',
+          // '师傅编号',
           '师傅姓名',
-          '工单状态',
+          '状态',
           '操作'
         ],
         sortData: [

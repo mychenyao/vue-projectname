@@ -136,6 +136,9 @@
               {{index+1}}
             </td>
             <td>
+              {{item.masterName||'无'}}
+            </td>
+            <td>
               {{item.id}}
             </td>
             <!--<td>-->
@@ -164,6 +167,9 @@
             </td>
             <td>
               {{item.linkmanArea | placeholder}}
+            </td>
+            <td>
+             {{item.type|orderType}}
             </td>
             <td>
               {{item.appointmentDatetime | moment('YYYY-MM-DD HH:mm:ss')}}
@@ -593,12 +599,14 @@
           value: 'label',
           children: 'cities',
         },
-        city: [{
+        city: [
+        {
           name: "所属城市",
           key: "cityId",
           SourceTypeValue: '', //选中后的
           SourceType: []
-        }],
+        }
+        ],
         optionList: [       //下拉列表数据
           {
             name: "渠道",
@@ -615,12 +623,15 @@
         selectorBehindObj: {},
         theadsName: [
           '序号',
+          '师傅姓名',
+
           '工单号',
 //          '用户编号',
           '联系人',
           '联系手机号',
           '师傅手机号',
-          '区域',
+          '服务区域',
+          "工单类型",
           '预约时间',
           '分类',
           '下单时间',

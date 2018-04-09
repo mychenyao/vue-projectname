@@ -82,6 +82,23 @@
             <td>
               {{index+1}}
             </td>
+             <td>
+               {{item.type|orderType}}
+             </td>
+             <td>
+               {{item.completeTimeLimit}}
+             </td>
+             <td>
+             {{item.deviation||'无'}}
+               <!-- 准时偏差 -->
+            
+             </td>
+             <td>
+               {{item.serviceTimeComplete }}
+             </td>
+             <td>
+               {{item.createTime}}
+             </td>
             <td>
               {{item.mainOrderId|placeholder}}
             </td>
@@ -217,6 +234,11 @@ import { addDialingMaster } from "./js/pagingPages"
         //<!--搜索框与table与分页start-->
         theadsName:[
           '序号',
+          "工单类型",
+          "服务时长",
+          "准时偏差值",
+          "完成时间",
+          "评价时间",
           '工单号',
           '师傅姓名',
           '师傅手机号',

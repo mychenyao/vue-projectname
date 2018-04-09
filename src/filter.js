@@ -213,23 +213,23 @@ Vue.filter('masterLevel',function(input){
 });
 Vue.filter('FLabelBusiness',function(input){
   if("001"===input){
-    return "家电清洗-家电品类";
+    return "家电清洗";
   }else if("002"===input){
-    return "家电维修-家电品类";
+    return "家电维修";
   }else if("003"===input){
-    return "手机维修-手机品牌";
+    return "手机维修";
   }else if("004"===input){
-    return "家居安装-家居类型";
+    return "家居安装";
   }else if("005"===input){
-    return "开锁修锁-锁类型";
+    return "开锁修锁";
   }else if("006"===input){
-    return "管道维修-管道类型";
+    return "管道维修";
   }else if("007"===input){
-    return "电脑维修-电脑类型";
+    return "电脑维修";
   }else if("008"===input){
-    return "卫浴洁具-卫浴类型";
+    return "卫浴洁具";
   }else if("009"===input){
-    return "智能设备-设备类型";
+    return "智能设备";
   }
 
 });
@@ -465,6 +465,8 @@ Vue.filter('price4Show2',function(input){
 Vue.filter('discountsFeeShow2',function(input){
   let discountsFee = 0;
   input.forEach((v)=>{
+    console.log("--------------------");
+    console.log(v);
     if("1"==v.isSecondPayment&&0==v.price2){
     }else {
       if(v.status==0) {
@@ -482,6 +484,7 @@ Vue.filter('totalFeeShow2',function(input,a){
   if(a==undefined){
     a=0;
   }
+  // console.log(a,"input");
   let visitFee = 0;
   let serviceFee = 0;
   let price3Fee = 0;
@@ -681,6 +684,10 @@ return "兼职师傅";
 }
 return "无"
 });
+
+
+
+
 
 Vue.filter('isEndShow',function(input){
   if("1"==input){
@@ -902,7 +909,34 @@ Vue.filter('adstate',function(input){
         return "时间冲突";
       }
       return "无"
+}); 
+ Vue.filter('orderType',function(input){   
+    if("0"===input){
+        return "正常工单";
+      }else if("1"===input){
+        return "返修工单";
+      }else if("2"===input){
+        return "一口价工单";
+      }else if("3"===input){
+        return "定价工单";
+      }else if("4"===input){
+        return "预约工单";
+      }else if("5"===input){
+        return "企业工单";
+      }
+      return "无"
 });
-Vue.filter('fdf',function(input){   //test
+ Vue.filter('orderSource',function(input){   
+      if("1"===input){
+        return "渠道商";
+      }else if("2"===input){
+        return "分享";
+      }else if("3"===input){
+        return "客服建";
+      }else if("4"===input){
+        return "渠道建";
+      }else if("5"===input){
+        return "官网下单";
+      }
       return "无"
 });

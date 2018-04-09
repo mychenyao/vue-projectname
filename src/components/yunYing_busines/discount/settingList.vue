@@ -170,11 +170,13 @@
       },
       methods: {
         getDownLaod(e,event){
-          const url = `${this.$apidomain}/discount/findpage`;
+          const url = `${this.$apidomain}/discount/loadBatchDiscount`,
                 params={"discountId":e.discountId};
-          this.$http.get(url,params).then(res=>{
+          this.$http.post(url,params).then(res=>{
                 const data=res.data;
-                if(data.code==="0000"&&data.result) window.location.href="../.../../../static/20180329.csv";
+                if(data.code==="0000"&&data.result){
+                  window.location.href=data.result
+                }
           })
         },
         copy(index){

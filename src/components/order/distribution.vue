@@ -117,6 +117,12 @@
               {{index+1}}
             </td>
             <td>
+              {{item.source|orderSource}}
+            </td>
+            <td>
+              {{item.type|orderType}}
+            </td>
+            <td>
               {{item.id| placeholder}}
             </td>
             <td>
@@ -134,15 +140,7 @@
                 </span>
               </Tooltip>
             </td>
-            <td>
-              {{item.masterPhoneNum | placeholder}}
-
-              <Tooltip content="拨打师傅" placement="top-end" hidden   v-if="telMasterWorker(item.state,item.masterPhoneNum) && isTooltip_show">
-                <span @click="l_dial_masterWorker(item.masterPhoneNum,item.id)">
-                  <Icon type="ios-telephone"  style="font-size: 20px;"></Icon>
-                </span>
-              </Tooltip>
-            </td>
+            
             <td>
               {{item.linkmanArea | placeholder}}
             </td>
@@ -564,13 +562,15 @@
         selectorBehindObj: {},
         theadsName: [
           '序号',
+          "工单来源",
+          "工单类型",
           '工单号',
           '联系人',
           '联系人手机号',
-          '师傅手机号',
+         
           '服务区域',
           '预约时间',
-          '服务类型',
+          '分类',
           '下单时间',
           '操作',
         ],
