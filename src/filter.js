@@ -465,8 +465,6 @@ Vue.filter('price4Show2',function(input){
 Vue.filter('discountsFeeShow2',function(input){
   let discountsFee = 0;
   input.forEach((v)=>{
-    console.log("--------------------");
-    console.log(v);
     if("1"==v.isSecondPayment&&0==v.price2){
     }else {
       if(v.status==0) {
@@ -939,4 +937,12 @@ Vue.filter('adstate',function(input){
         return "官网下单";
       }
       return "无"
+});
+Vue.filter('placeholderSex',function(input){   
+  if("1"===input){
+    return "男";
+  }else if("2"===input){
+    return "女";
+  }
+  return "未知"
 });
