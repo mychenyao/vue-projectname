@@ -1,18 +1,19 @@
 <template>
     <div id="app">
-      <div class="container">
-            <biaoqian v-show="biaoqianShow" :str="str"></biaoqian>
+      <div class="container" >
+            <biaoqian v-show="biaoqianShow" :str="str" @fouShow="fouShow"></biaoqian>
             <div class="user_sum">
-              <user-sum class="sum" :suerSum="item" v-for="(item,index) in userSum" :key="index"></user-sum>
+              <user-sum class="sum"  :suerSum="item" v-for="(item,index) in userSum" :key="index"></user-sum>
             </div>
             <div class="selector_list">
               <div  v-for="(item,index) in optionList" :key="index" class="list">
                 {{item.name}} :
+
                 <el-select
                   v-model="item.SourceTypeValue" placeholder="请选择" @change="selector(item,item.SourceType,item.SourceTypeValue)">
                   <el-option
                   v-for="items in item.SourceType"
-                  :key="items.value"
+                  :key="items.name"
                   :value="items.value"
                 >
                 </el-option>
@@ -29,13 +30,13 @@
                 </el-input>
               </div>
             </div>
-           <div class="btn_biaoqian" @click="dabiaoqian(tableListData.userInfos)">打标签</div>
+           <el-button class="btn_biaoqian" @click="dabiaoqian(tableListData.userInfos)">打标签</el-button>
         <!--查询按钮-->
             <div class="btn_inquiry" @click="quiry">
               查询
             </div>
-            <div class="dable_lsit">
-              <table cellSpacing="0px" cellpadding="0">
+            <div class="dable_lsit" >
+              <table cellSpacing="0px" cellpadding="0" >
                 <thead  >
                 <tr class="theads">
                 <th>
@@ -68,11 +69,11 @@
                     {{item.nickName||placeholder}}
                   </td>
                   <td>
-                    {{item.sex|placeholder}}
+                    {{item.sex|placeholderSex}}
                   </td>
-                  <!-- <td>
-                    {{item.city||placeholder}}
-                  </td> -->
+                  <td>
+                    {{item.label||placeholder}}
+                  </td>
                   <td>
                     {{item.channel||placeholder}}
                   </td>
@@ -131,7 +132,7 @@
          </div>
       </div>
       <!--弹框-->
-      <el-dialog style="z-index:999999"  :visible.sync="dialogTableVisible" size="tiny">
+      <el-dialog style="z-index:999999"  :visible.sync="dialogTableVisible" size="tiny" >
         <ul class="alert_forbidden_text">
           <li v-for="(item,index) in alertForbiddenList" :key="index" @click="selectorForbidden(item,index)">
             {{item.name}} <span v-show="item.selector!='0'"></span>
@@ -171,7 +172,7 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
             "城市",
             "昵称",
             "性别",
-            // "标签",
+            "标签",
             "子渠道",
             "近期登陆",
             "渠道",
@@ -288,6 +289,9 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
     },
 
     methods: {
+      fouShow(item){
+          this.biaoqianShow = item;
+      },
 
        workChang(data,isBool){ //全选
              let _this = this;
@@ -299,7 +303,6 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
             })
        },
        isCheckbox(data,index){ //单选  改变全选按钮
-         console.log(this.isCheckboxList)
             let _this=this;
             let isCheck = true,i;
             _this.tableListData.userInfos[index].isCheckboxList = _this.isCheckboxList[index]
@@ -319,7 +322,6 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
              newAr.push(v)
            }
          });
-         console.log(newAr)
          if(newAr.length==0){
            alert("请选择需要打标签的用户");
            return;
@@ -327,7 +329,6 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
            this.biaoqianShow = true;
          }
           for(let i= 0 ; i<newAr.length; i++){
-                console.log(newAr[i])
                 this.str +=newAr[i].id+",";
           }
 
@@ -358,6 +359,7 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
       details(item){
         let url=common.apidomain+"/userInfo/findonedetails?id="+item.id;
         this.$http.get(url).then(res=>{
+          console.log(res,"shadjgaj")
           let data = res.data;
           this.alertInfo = data.result;
           this.alertInfo.close=this.close
@@ -446,8 +448,7 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
 
     },
     created(){
-   console.log(this.isCheckboxList)
-     console.log(this.tableListData.userInfos)
+      console.log(this.tableListData.userInfos)
       getThis(this);
       let urlCount=common.apidomain+"/userInfo/countList";
       this.$http.get(urlCount).then(r=>{
@@ -623,17 +624,6 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
         }
       }
     .btn_biaoqian{
-      width: 168px;
-      height: 41px;
-      border-radius: 4px;
-      background-color: rgba(199, 197, 199, 1);
-      color: rgba(16, 16, 16, 1);
-      font-size: 14px;
-      text-align: center;
-      font-family: Microsoft Yahei;
-      border: 1px solid rgba(107, 107, 107, 1);
-      line-height: 41px;
-      cursor:pointer;
       transform: translate(0px,109px);
     }
     .btn_inquiry{

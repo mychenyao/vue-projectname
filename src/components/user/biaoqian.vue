@@ -80,11 +80,9 @@
                 }
       },
       OneYesClick(){
-        console.log(this.str)
         if(this.spanIndex == -1){
            return alert("请选择标签")
         }else{
-          console.log("wo xuanze ")
           let objParmOne = {};
           objParmOne.userIds =this.str;
           objParmOne.labelId =this.lableID;
@@ -94,7 +92,8 @@
           }).catch((error)=>{
                 console.log(error)
           })
-
+             this.$emit("fouShow",false)
+             location.reload();
         }
       },
       spanClick(v,i){
@@ -141,7 +140,7 @@
 
       },
       quxiao(){
-         location.reload();
+         this.$emit("fouShow",false)
         
       }
     }
@@ -230,12 +229,12 @@
 
           input{
             display: inline-block;
-            width:60%;
+            width:50%;
             margin:0 5px;
             border: 0;
           }
           span:nth-child(3){
-            margin-right: 5px;
+            // margin-right: 5px;
           }
         }
       }

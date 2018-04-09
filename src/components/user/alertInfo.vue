@@ -12,6 +12,7 @@
               <li>近期登陆:{{dataObj.userInfo.loginTime|moment('YYYY-MM-DD HH:mm:ss')|placeholder}}</li>
               <li>绑定手机:{{dataObj.userInfo.phoneNum |placeholderTel}}</li>
               <li>用户来源:{{dataObj.userInfo.sourceType| userSourceType}}</li>
+              <li>标签:{{dataObj.userInfo.label| placeholder}}</li>
               <li v-if="1==dataObj.userInfo.sourceType">渠道:{{dataObj.userInfo.source|placeholder}}</li>
               <li v-if="1==dataObj.userInfo.sourceType&&dataObj.referrerUserPhoneNum">推荐人手机号: {{dataObj.referrerUserPhoneNum|placeholderTel}}</li>
               <li>关注状态: {{dataObj.userInfo.attentionState | userAtentionState}}</li>
