@@ -926,15 +926,19 @@ Vue.filter('adstate',function(input){
 });
  Vue.filter('orderSource',function(input){   
       if("1"===input){
-        return "渠道商";
+        return "渠道下单";
       }else if("2"===input){
         return "分享";
       }else if("3"===input){
-        return "客服建";
+        return "平台自建";
       }else if("4"===input){
-        return "渠道建";
+        return "渠道自建";
       }else if("5"===input){
         return "官网下单";
+      }else if(input==="0"){
+        return "微信下单"
+      }else if(input==="0"){
+        return "WAP端下单"
       }
       return "无"
 });
