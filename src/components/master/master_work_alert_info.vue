@@ -43,6 +43,8 @@
             <li>准时率:{{dataObj.punctualityRate|placeholder}}</li>
             <li>完工率:{{dataObj.completeRate|placeholder}}</li>
             <li>投诉工单:{{dataObj.complainOrder|placeholder}}</li>
+            <li>遗留单:{{dataObj.abnormalHangUp|placeholder}}</li>
+            <li>异常结款:{{dataObj.abnormalMoney|placeholder}}</li>
           </ul>
         </div>
       </div>
@@ -85,7 +87,6 @@
       this.$http.get(url).then(res=>{
         let data = res.data;
         this.dataObj = data.result.masterInfo;
-
         this.areas = data.result.areas;
         this.skills = data.result.skills;
 

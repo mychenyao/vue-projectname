@@ -6,7 +6,7 @@
           <div class="list_name">
             分类 :
           </div>
-             {{detailData.classifyName}}
+             {{detailData.data.name}}
         </div>
         <div class="input_title">
 
@@ -58,6 +58,7 @@
       }
     },
     created(){
+      console.log(this.detailData);
       let url=this.$apidomain+"/labelbusinessdetails/findone?id="+this.detailData.data.id;
       this.$http.get(url).then(res=>{
         let data = res.data;

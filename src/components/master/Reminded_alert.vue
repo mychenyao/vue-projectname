@@ -106,7 +106,7 @@
         isAdd:true,
         optionList:[
           {
-            name: "师傅类型",
+            name: "师傅类别",
             key: "masterType",
             SourceTypeValue: '',
             SourceType: [
@@ -138,7 +138,7 @@
               }
             ]
           },{
-            name: "所属城市",
+            name: "服务城市",
             key: "areaId",
             SourceTypeValue: '',
             SourceType: []

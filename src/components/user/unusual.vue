@@ -56,6 +56,8 @@
          <td>
            {{item.source|placeholder}}
          </td>
+         <td>{{item.channel|placeholder}}</td>
+         <td>{{item.label|placeholder}}</td>
          <td>
            {{item.sourceType | userSourceType}}
          </td>
@@ -122,6 +124,8 @@
           '城市',
           '近期登陆',
           '渠道',
+          "子渠道",
+          "标签",
           '来源类型',
           '异常原因',
           '关注状态',
