@@ -124,7 +124,7 @@
         },
         optionList:[
           {
-            name: "师傅类型",
+            name: "师傅类别",
             key: "type",
             SourceTypeValue: '',
             SourceType: [
@@ -162,7 +162,7 @@
               }
             ]
           },{
-            name: "所属城市",
+            name: "服务城市",
             key: "cityId",
             SourceTypeValue: '',
             SourceType: []
@@ -189,9 +189,9 @@
         checked:false,
         theadsName:[
           '序号',
-          '级别',
-          '城市',
-          '分类',
+          '师傅等级',
+          '服务城市',
+          '服务工种',
           '费用类别',
           '提点价格',
           '师傅类别',
@@ -216,28 +216,7 @@
         cityId:"",
         isAlert:this.$store.state.isAlert,
         isActive:"0",
-        options2: [
-//          {
-//            label: '武汉',
-//            id:"0101",
-//            cities: [
-//              {label: "洪山区",id:"010101"},
-//              {label: "武昌区",id:"010102"},
-//              {label: "汉口区",id:"010103"},
-//              {label: "江夏区",id:"010104"},
-//              {label: "汉阳区",id:"010105"},
-//            ]
-//          }, {
-//            label: '深圳',
-//            id:"0102",
-//            cities: [
-//              {label: "南山区",id:"010201"},
-//              {label: "罗湖区",id:"010202"},
-//              {label: "宝安区",id:"010203"},
-//              {label: "龙华区",id:"010204"}
-//            ]
-//          }
-        ],
+        options2: [],
         props: {
           value: 'label',
           children: 'cities',

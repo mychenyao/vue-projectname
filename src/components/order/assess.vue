@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
+                                                 <!--工单评价-->
       <div class="selector_list">
         <div class="list">
           工单号 :
@@ -17,7 +18,7 @@
           </el-input>
         </div>
         <div class="list">
-          用户绑定手机号 :
+          联系人手机号 :
           <el-input
             placeholder="请输入内容"
             v-model="userPhoneNum">
@@ -91,13 +92,12 @@
              <td>
              {{item.deviation||'无'}}
                <!-- 准时偏差 -->
-            
              </td>
              <td>
-               {{item.serviceTimeComplete }}
+               {{item.serviceTimeComplete | moment('YYYY-MM-DD HH:mm:ss')}}
              </td>
              <td>
-               {{item.createTime}}
+               {{item.createTime  | moment('YYYY-MM-DD HH:mm:ss')}}
              </td>
             <td>
               {{item.mainOrderId|placeholder}}
@@ -167,7 +167,6 @@
   </div>
 </template>
 <script>
-//  import addAlert from "./addSetting.vue";
 import evaluationdetail from "./orderAllCommonts/evaluationdetail.vue"
 import { addDialingMaster } from "./js/pagingPages"
   export default {
@@ -244,7 +243,7 @@ import { addDialingMaster } from "./js/pagingPages"
           '师傅手机号',
           '工单类型',
           '分类',
-          '用户绑定手机号',
+          '联系人手机号',
           '主评分',
 //          '状态',
           '操作'
@@ -424,7 +423,7 @@ import { addDialingMaster } from "./js/pagingPages"
             "pageSize":JSON.stringify(this.currentPageSize),
             "mainOrderId":this.mainOrderId,
             "masterPhoneNum":this.masterPhoneNum,
-            "userPhoneNum":this.userPhoneNum,
+            "linkmanPhoneNum   ":this.userPhoneNum,
             "masterName":this.masterName,
             "orderLabel":this.selone,
             "orderType":this.selone1,

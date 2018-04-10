@@ -29,13 +29,18 @@
                 师傅已抵达
               </el-button>
             </li>
+
             <li class="left_info_edit"   v-if="(dataObj.orderStatus=='04' || dataObj.orderStatus=='05' || dataObj.orderStatus=='06'||
              dataObj.orderStatus=='07'|| dataObj.orderStatus=='08'|| dataObj.orderStatus=='10'|| dataObj.orderStatus=='11')  && repair_work_btn">
               <el-button type="primary" @click="completed(dataObj.orderNumber)">
                 工单已完成
               </el-button>
             </li>
-            <li>工单编号：{{dataObj.orderNumber ||placeholder}}</li>
+            <li>工单号：{{dataObj.orderNumber ||placeholder}}</li>
+            <li>
+
+            </li>
+            <li>工单类型：{{orderDetailed.data.type|orderType}}</li>
             <li>服务城市: {{dataObj.city||placeholder}}</li>
             <li>绑定手机号: {{dataObj.userNumber ||placeholder}}</li>
             <li>联系人:                     <!--可编辑-->
@@ -84,7 +89,7 @@
               </el-button>
               </span>
             </li>
-            <li>联系手机号:
+            <li>联系人手机号:
               <span v-if="!this.isEdit()">
                   {{dataObj.tel||placeholder}}
               </span>
@@ -102,9 +107,11 @@
               </el-button>
             </li>
             <li>工单渠道:{{dataObj.officialPartnerSubsetName|placeholder}}</li>
-            <li>工单来源:{{dataObj.orderSource| orderSourceShow|placeholder}}</li>
+            <li>网点名称:{{orderData.site}}</li>
+            <li >师傅类型:{{masterInfos.type|masterType}}</li>
+            <li>工单来源:{{dataObj.orderSource | orderSourceShow|placeholder}}</li>
             <li v-if="2==dataObj.orderSource">推荐人手机号:{{dataObj.orderSourceId|placeholder}}</li>
-            <li>工单状态:{{dataObj.orderStatus | orderStateShow|placeholder}}</li>
+            <li>状态:{{dataObj.orderStatus | orderStateShow|placeholder}}</li>
             <li>
               <textarea class="text_area" placeholder="编辑基本信息备注"  v-if="this.isEdit()" v-model="dataObj.remarks">
               </textarea>
@@ -546,6 +553,7 @@
     data(){
       return{
         tip:false,
+        masterInfos:{},
         isPotos:{
           isShow:false,
           potosimg:[],
@@ -774,6 +782,7 @@
         let url2=this.$apidomain+"/orderquery/findnewpage?id="+this.orderDetailed.orderId+"&type=1";
         this.$http.get(url2).then(r=>{
           if(r.data.code=="0000"){
+
             this.repaireorder.list=r.data.result.orders;
           }else{
             alert(r.data.error)
@@ -790,6 +799,8 @@
 //            this.isNewservice.data1=data.result.coreMainOrderServices;
             this.isNewservice.data=data.result.coreMainOrder;
             this.orderData = data.result.coreMainOrder;
+            if(data.result.masterInfo)this.masterInfos=data.result.masterInfo;
+
             let potosobj=data.result.coreMainOrderSubsidiary;  //图片的对象
             let res = data.result.coreMainOrder;
             if(data.result.coreMainOrderSubsidiary){
@@ -1218,7 +1229,7 @@
     },
     mounted() {
       this.refuse()
-
+      console.log(this.orderDetailed);
     },
     destroyed(){
       this.$store.commit("edit",false);

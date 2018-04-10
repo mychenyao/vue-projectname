@@ -31,9 +31,9 @@
             </li>
           </ul>
           <ul v-else>
-            <li>师傅类型 :{{selectorBehindObj.masterType|mastertype}}</li>
+            <li>师傅类别 :{{selectorBehindObj.masterType|mastertype}}</li>
             <li>师傅等级 :{{selectorBehindObj.masterLevel|masterLevel}}</li>
-            <li>所属城市 :{{selectorBehindObj.area|placeholder}}</li>
+            <li>服务城市 :{{selectorBehindObj.area|placeholder}}</li>
             <li>服务工种 :{{selectorBehindObj.labelName|placeholder}}</li>
           </ul>
         </div>

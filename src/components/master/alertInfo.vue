@@ -6,15 +6,20 @@
         <div class="left_info">
           <p class="title">师傅信息</p>
           <ul>
-            <li>姓名：{{dataObj.masterInfo.name |placeholder}}</li>
-            <li>手机号:{{dataObj.masterInfo.phoneNum |placeholderTel}}</li>
+            <li>师傅姓名：{{dataObj.masterInfo.name |placeholder}}</li>
+            <li>师傅手机号:{{dataObj.masterInfo.phoneNum |placeholderTel}}</li>
             <li>所属网点:{{dataObj.masterInfo.site |placeholder}}</li>
             <li>服务城市:{{dataObj.masterInfo.city|placeholder}}</li>
             <li>身份证:{{dataObj.masterInfo.idNum|placeholder}}</li>
+            <li>
+             提交时间 : {{dataObj.masterInfo.certificateTime|moment('YYYY-MM-DD HH:mm:ss')|placeholder}}
+            </li> <li>
+               注册时间 : {{dataObj.masterInfo.registerTime|moment('YYYY-MM-DD HH:mm:ss')|placeholder}}
+            </li>
             <li>服务区域:{{dataObj.areas|listshow |placeholder}}</li>
             <li>服务工种:{{dataObj.skills|listshow|placeholder}}</li>
             <li>紧急联系人:{{dataObj.masterInfo.emergencyContact|placeholder}}</li>
-            <li>联系人电话:{{dataObj.masterInfo.emergencyPhoneNum|placeholderTel}}</li>
+            <li>紧急手机号:{{dataObj.masterInfo.emergencyPhoneNum|placeholderTel}}</li>
             <li>
               <ul>
                 <li>
@@ -65,9 +70,8 @@
     created(){
       let url=this.$apidomain+"/masterinfo/finddetail?id="+this.isDetailed.id;
       this.$http.get(url).then(res=>{
-//
         let data = res.data;
-        console.log(data);
+        console.log(data.result);
         this.dataObj = data.result;
         var images =  this.dataObj.masterInfo.idPhotos.split(",");
         this.dataObj.licenseImg = images[0];  //本人执证照

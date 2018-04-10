@@ -15,19 +15,33 @@
             </div>
           </div>
           <ul>
+            <li>师傅姓名：{{dataObj.name}}</li>
+            <li>师傅手机号：{{dataObj.phoneNum|placeholderTel}}</li>
+            <li>服务城市：{{dataObj.city|placeholder}}</li>
+            <li>师傅类别： {{dataObj.type|mastertype}}</li>
+            <li>所属网点：{{dataObj.site||"无"}}</li>
+            <li>挂起次数：{{dataObj.hangSize}}</li>
+            <li>返修数：{{dataObj.reworkSize}}</li>
+            <li>完成保内单：{{dataObj.reworkCompleteSize}}</li>
+            <li>服务态度（分）：{{dataObj.serviceAttitude|placeholder}}</li>
+            <li>技术能力（分）：{{dataObj.technicalCompetence|placeholder}}</li>
+            <li>准时到达（分）：{{dataObj.deviation|placeholder}}</li>
+            <li>近期登陆 ：{{dataObj.loginTime|moment("YYYY-MM-DD HH:mm:ss")|placeholder}}</li>
+            <li>状态：{{dataObj.state|childState}}</li>
+
             <li>服务区域：{{areas|listshow}}</li>
             <li>师傅编号：{{dataObj.id}}</li>
             <li>服务工种: {{skills|listshow}}
             </li>
             <li>工作状态:{{dataObj.workState|showWorkState}}</li>
-            <li>总单数:{{dataObj.allOrderCount|placeholder}}</li>
+            <li>总接单量:{{dataObj.allOrderCount|placeholder}}</li>
             <li>已完成:{{dataObj.completeCount|placeholder}}</li>
             <li>待服务:{{dataObj.waitService|placeholder}}</li>
-            <li>异常挂起:{{dataObj.abnormalHangUp|placeholder}}</li>
-            <li>异常结款:{{dataObj.abnormalMoney|placeholder}}</li>
+            <li>异常次数:{{dataObj.abnormalHangUp|placeholder}}</li>
+            <li>确认数据:{{dataObj.abnormalMoney|placeholder}}</li>
             <li>平均分:{{dataObj.applauseRate|placeholder}}</li>
             <li>准时率:{{dataObj.punctualityRate|placeholder}}</li>
-            <li>完成率:{{dataObj.completeRate|placeholder}}</li>
+            <li>完工率:{{dataObj.completeRate|placeholder}}</li>
             <li>投诉工单:{{dataObj.complainOrder|placeholder}}</li>
           </ul>
         </div>
@@ -71,6 +85,7 @@
       this.$http.get(url).then(res=>{
         let data = res.data;
         this.dataObj = data.result.masterInfo;
+
         this.areas = data.result.areas;
         this.skills = data.result.skills;
 
