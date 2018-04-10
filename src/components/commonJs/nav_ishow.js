@@ -4,6 +4,7 @@ if(getLocalStorageUserInfo("enrolleeinfo")[0]){
   userRoleId = getLocalStorageUserInfo("enrolleeinfo")[0].userRoleId;
 }
 
+
 export function getAuthNavChildList(){
   if("SupportManager"===userRoleId){ // 客服经理
     return ["fn-user-manage","fn-master-manage","fn-site-manage","fn-channel-manage","fn-operation-manage","fn-order-manage","fn-product-manage","sn-user-list","sn-user-abnormal","sn-master-account","sn-master-authentication","sn-master-business","sn-master-leave","sn-site-list","sn-site-account","sn-site-abnormal","sn-channel-list","sn-channel-subset","sn-operation-feedback","sn-order-monitoring","sn-order-waitfordistribution","sn-order-underway","sn-order-pending","sn-order-all","sn-finance-property","sn-finance-record","sn-finance-reconciliation","sn-finance-account","sn-finance-abnormalsettlement","sn-product-list","sn-product-classify","sn-product-high","sn-product-details",];

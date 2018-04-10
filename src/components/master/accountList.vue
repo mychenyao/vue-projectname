@@ -95,10 +95,13 @@
                 {{index+1}}
               </td>
               <td>
-                {{item.id|placeholder}}
+                {{item.registerTime|moment('YYYY-MM-DD HH:mm:ss')|placeholder}}
               </td>
               <td>
-                {{item.city|placeholder}}
+                {{item.workState|showWorkState}}
+              </td>
+              <td>
+                {{item.id|placeholder}}
               </td>
               <td>
                 {{item.name|placeholder}}
@@ -157,10 +160,7 @@
         </add-alert>
       </div>
 
-
-
       <!--弹框-->
-      <!--<el-button type="text" @click="dialogTableVisible = true">打开嵌套表格的 Dialog</el-button>-->
       <el-dialog style="z-index:999999"  :visible.sync="dialogTableVisible" size="tiny">
             <ul class="alert_forbidden_text">
               <li v-for="(item,index) in alertForbiddenList" :key="index" @click="selectorForbidden(item,index)">
@@ -261,6 +261,25 @@
               key: "siteId",
               SourceTypeValue: '',
               SourceType: []
+            },{
+              name: "工作状态",
+              key: "workState",
+              SourceTypeValue: '',
+              SourceType: [
+                {
+                  value: '空闲中',
+                  id: "Leisure"
+                },{
+                  value: '工作中',
+                  id: "Working"
+                },{
+                  value: '请假中',
+                  id: "BeOnLeave"
+                },{
+                  value: '无',
+                  id: ""
+                },
+              ]
             },
           ],
           props: {
@@ -272,10 +291,11 @@
           checked:false,
           theadsName:[
             '序号',
+            '注册时间',
+            '工作状态',
             '师傅编号',
-            '城市',
-            '姓名',
-            '手机号码',
+            '师傅姓名',
+            '师傅手机号',
             '师傅类别',
             '所属网点',
             '近期登陆',
@@ -391,6 +411,7 @@
             "cityId":this.selectorBehindObj.cityId,
             "skillId":this.selectorBehindObj.skillId,
             "areaId":this.selectorBehindObj.areaId,
+            "workState":this.selectorBehindObj.workState,
             "certificateState":2,
           }}
         },

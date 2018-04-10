@@ -1,12 +1,34 @@
 <template>
-    <div id="app">
-      <el-dialog style="z-index:999999;top:15%"   :visible.sync="isAdd.isShow">
-          <ul class="ullist">
+    <div>
+      <el-dialog style="z-index:999999;"   :visible.sync="isAdd.isShow">
+          <ul class="ullist scrollbar">
+
             <li>
               <span>工单号: </span>{{list.mainOrderId}}
             </li>
             <li>
+              <span>工单类型: </span>{{list1.type|orderType}}
+            </li>
+            <li>
+              <span>预约时间: </span>{{list1.appointmentDatetime|moment('YYYY-MM-DD HH:mm:ss')}}
+            </li>
+            <li>
+              <span>联系人手机号: </span>{{list1.linkmanPhoneNum||"未绑定"}}
+            </li><li>
+              <span>异常挂起次数: </span>{{list1.abnormalHangSize}}
+            </li><li>
+              <span>评价时间: </span>{{list1.createTime|moment('YYYY-MM-DD HH:mm:ss')}}
+            </li><li>
+              <span>返修次数: </span>{{list1.reworkSize}}
+            </li>
+            <li>
               <span>工单类型: </span>{{list.orderType|orderSourceShow}}
+            </li>
+            <li>
+              <span>工单耗时: </span>{{list1.completeTimeLimit}}
+            </li>
+            <li>
+              <span>服务时长: </span>{{list1.workTimeLimit}}
             </li>
             <li>
               <span>分类: </span>{{list1.fLabelBusiness|FLabelBusiness}}
@@ -36,9 +58,6 @@
               <span>评价内容: </span>{{list.content}}
             </li>
             <li>
-              <span>用户绑定手机号: </span>{{list1.userPhoneNum}}
-            </li>
-            <li>
               <span>师傅姓名: </span>{{list.masterName}}
             </li>
             <li>
@@ -61,11 +80,9 @@
         }
       },
       created(){
-        console.log(this.isAdd,"123213");
         let url =this.$apidomain+"/orderquery/findEvaluateDetail?id="+this.isAdd.data.id;
         this.$http.get(url).then(r=>{
           let data=r.data;
-//          console.log(r,".....");
           if(data.code=="0000"){
               this.list=data.result.coreMainOrderEvaluates;
               this.list1=data.result.coreMainOrders;
@@ -84,14 +101,19 @@
 
 <style scope lang="scss">
   .ullist{
+    max-height:500px;
+    overflow: auto;
     >li{
       width:100%;
       border:1px solid #ccc;
       border-bottom: none;
+      line-height: 2.5em;
+      text-indent:.5em;
       >span{
         display: inline-block;
         width: 200px;
         border-right: 1px solid #ccc;
+        margin-right:1em;
       }
     }
     >li:last-child{

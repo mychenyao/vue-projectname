@@ -3,21 +3,17 @@
     <div class="container">
       <div class="selector_list">
         <div class="list">
-          手机号 :
+          师傅手机号 :
           <el-input
             placeholder="请输入内容"
             v-model="telBind">
           </el-input>
-        </div>
-        <div class="list">
-          城市 :
-          <el-cascader id="city"
-                       @change="changeSelector1"
-                       :options="areaoptions1"
-                       change-on-select
-                       @active-item-change="handleItemChange"
-                       :props="props"
-          ></el-cascader>
+        </div>  <div class="list">
+          师傅姓名 :
+          <el-input
+            placeholder="请输入内容"
+            v-model="name">
+          </el-input>
         </div>
         <div class="list orderType">
           服务工种 :
@@ -75,13 +71,10 @@
               {{item.phoneNum|placeholder}}
             </td>
             <td>
-              {{item.type|mastertype}}
+              {{item.certificateTime|moment('YYYY-MM-DD HH:mm:ss')|placeholder}}
             </td>
             <td>
-              {{item.site|placeholder}}
-            </td>
-            <td>
-              {{item.createTime|moment('YYYY-MM-DD HH:mm:ss')|placeholder}}
+              {{item.registerTime|moment('YYYY-MM-DD HH:mm:ss')|placeholder}}
             </td>
             <td>
               {{item.certificateState | certificateState}}
@@ -195,12 +188,11 @@
         theadsName:[
           '序号',
           '师傅编号',
-          '城市',
-          '姓名',
-          '手机号',
-          '师傅类别',
-          '所属网点',
+          '服务城市',
+          '师傅姓名',
+          '师傅手机号',
           '提交时间',
+          '注册时间',
           '认证状态',
           '操作'
         ],
@@ -218,8 +210,8 @@
         input7: '',
         telBind:'',   //绑定手机
         isClose:false,
+        name:"",
         isForbidden:false,
-        cityId:"", //城市id
         isAlert:this.$store.state.isAlert,
         isActive:"0",   //选中的
         areaoptions1: [],
@@ -265,9 +257,9 @@
           "pageNo":JSON.stringify(this.showPages),
           "pageSize":JSON.stringify(this.currentPageSize),
           "phoneNum":this.telBind,
+          "name":this.name,
           "certificateState":this.selectorBehindObj.certificateState,
-          "skillId":this.selectorBehindObj.skillId,
-          "cityId":this.selectorBehindObj.cityId,
+          "skillId":this.selectorBehindObj.skillId
         }}
       },
       getTableList(params){
@@ -291,18 +283,6 @@
         this.isDetailed.isShow=true;
       },
 //      <!--弹窗功能end-->
-//      <!--获取城市下的区域信息与服务工种 start-->
-      changeSelector1(value){
-        this.areaoptions1.forEach((v,i)=>{
-          if(value[0]===v.label){
-            v.cities.forEach((e,i)=>{
-              if(e.label===value[1]){
-                this.selectorBehindObj.cityId=e.id
-              }
-            })
-          }
-        });
-      },
       changeSelector2(value){
         this.labeloptions2.forEach((v,i)=>{
           if(value[0]===v.label){
@@ -443,18 +423,6 @@
         this.getTableList(this.paramsData());
       },
       handleItemChange(val) {
-      },
-      changeSelector(value){
-        this.options2.forEach((v,i)=>{
-          if(value[0]===v.label){
-            this.cityId=v.id;    //选择城市
-            v.cities.forEach((e,i)=>{
-              if(e.label===value[1]){
-                this.cityId=e.id    //选择区
-              }
-            })
-          }
-        });
       },
       selector(item,values,SourceTypeValue){       //选中后的下拉列表
         var key=item.key;

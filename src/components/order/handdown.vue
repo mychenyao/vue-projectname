@@ -2,7 +2,7 @@
   <div id="app">
     <!--导航栏-->
     <!--导航栏结束-->
-
+                                                <!--待处理工单-->
     <!--content内容区域-->
     <div v-show="orderDetailed.isShow"  class="container">
       <!--下拉列表-->
@@ -28,13 +28,7 @@
             v-model="inputParams.userPhoneNum">
           </el-input>
         </div>
-        <div class="list">
-          师傅工号 :
-          <el-input
-            placeholder="请输入内容"
-            v-model="inputParams.masterJobNumber">
-          </el-input>
-        </div>
+
         <div class="list">
           预约时间 :
           <el-date-picker
@@ -138,7 +132,7 @@
                 </span>
               </Tooltip>
             </td>
-           
+
             <td>
               {{item.linkmanArea| placeholder}}
             </td>
@@ -146,7 +140,8 @@
               {{item.appointmentDatetime|moment('YYYY-MM-DD HH:mm:ss')}}
             </td>
             <td>
-              {{item.masterId| placeholder}}
+              {{item.masterPhoneNum| placeholder}}
+              <!--师傅手机号-->
             </td>
             <td>
               {{item.masterName|placeholder}}
@@ -155,7 +150,7 @@
               {{item.fLabelBusiness|FLabelBusinessShow}}
             </td>
             <td >
-              {{item.abnormalHangUp| placeholder}}
+              {{item.state| BackOrderStatus}}
             </td>
             <td style="width:160px;">
               {{item.abnormalHangUpRemark| placeholder}}
@@ -491,7 +486,6 @@
         inputParams: {
           orderNumber: "",//工单号
           orderTel: "",//下单手机号
-          masterJobNumber: "",//师傅工号
         },
         isEdit: true,
         alertForbiddenList: [
@@ -582,10 +576,10 @@
           '联系人手机号',
           '区域',
           '预约时间',
-          '师傅编号',
+          '师傅手机号',
           '师傅姓名',
           '分类',
-          '处理类型',
+          '状态',
           '工单说明',
           '操作'
         ],
@@ -716,7 +710,7 @@
           "linkmanAreaId":this.selectorBehindObj.areaId,       //区域
           "linkmanCityId":this.selectorBehindObj.cityId,       //城市
           "officialPartnerId":this.selectorBehindObj.sourceId,  //渠道
-          "masterId":this.selectorBehindObj.masterJobNumber, //师傅工号
+
           "appointmentDatetimeStartStr":this.statisticsDateStartStr, //师傅工号
           "appointmentDatetimeEndStr":this.statisticsDateEndStr, //师傅工号
           "createTimeStartStr":this.statisticsDateStartStr2, //师傅工号

@@ -8,7 +8,6 @@
             <div class="selector_list">
               <div  v-for="(item,index) in optionList" :key="index" class="list">
                 {{item.name}} :
-
                 <el-select
                   v-model="item.SourceTypeValue" placeholder="请选择" @change="selector(item,item.SourceType,item.SourceTypeValue)">
                   <el-option
@@ -22,11 +21,11 @@
 
               <!--手机号码-->
 
-              <div class="list">
-                绑定手机 :
+              <div class="list" v-for="(item,index) in inputsList">
+                {{item.name}} :
                 <el-input
                   placeholder="请输入内容"
-                  v-model="telBind">
+                  v-model="inputParams[item.KEY]">
                 </el-input>
               </div>
             </div>
@@ -77,8 +76,6 @@
                   <td>
                     {{item.channel||placeholder}}
                   </td>
-
-                  <!--  -->
                   <td>
                     {{item.loginTime|moment('YYYY-MM-DD HH:mm:ss')||placeholder}}
                   </td>
@@ -160,6 +157,19 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
       return {
         biaoqianShow : false, //打标签
         placeholderTel:"未绑定",
+        inputsList:[
+          {
+            KEY:"phoneNum",
+            name:"绑定手机号"
+          }, {
+            KEY:"nickName",
+            name:"昵称"
+          },{
+            KEY:"label",
+            name:"标签"
+          },
+        ],
+        inputParams:{},
         placeholder:"无",
         textareaContent:"",
         currentPage4: 1,
@@ -215,7 +225,8 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
           value: 'label',
           children: 'cities',
         },
-        userSum:[{
+        userSum:[
+          {
                 sum:"0", //总用户量
                 color:"blue",
                 name:"总用户量"
@@ -242,12 +253,30 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
                                           id:"2"
                                     }
                                  ]
-                      }, {
+                      },     {
+                      name:"性别",
+                      key:"sex",
+                      SourceTypeValue: '', //选中后的
+                      SourceType:[
+                                    {     //来源类型
+                                      value: '---请选择---',
+                                      id:""
+                                    }, {
+                                      value: '男',
+                                        id:"1"
+                                    }, {
+                                      value: '女',
+                                          id:"2"
+                                    }
+                                 ]
+                      },
+          {
                       name:"渠道",
                       key:"sourceId",
                       SourceTypeValue: '', //选中后的
                       SourceType:[]
-                      }, {
+                      },
+                   {
                           name:"来源类型",
                           key:"sourceType",
                           SourceTypeValue: '', //选中后的
@@ -266,7 +295,8 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
                               value: '无'
                             }
                           ]
-                      }, {
+                      },
+          {
                           name:"城市",
                           key:"cityId",
                           SourceTypeValue: '', //选中后的
@@ -432,8 +462,11 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
         return {params: {
           "pageNo":JSON.stringify(this.showPages),
           "pageSize":JSON.stringify(this.currentPageSize),
-          "phoneNum":this.telBind,
+          "phoneNum":this.inputParams.phoneNum,
+          "label":this.inputParams.label,
+           "nickName":this.inputParams.nickName,
           "state":this.selectorBehindObj.state,
+           "sex" :this.selectorBehindObj.sex,
           "channelId":this.selectorBehindObj.sourceId,
           "sourceType":this.selectorBehindObj.sourceType,
           "cityId":this.selectorBehindObj.cityId,

@@ -57,8 +57,7 @@
         detailAddFlag:false,
         detailData:{
           isShow:false,
-          content:"",
-          classifyName:"家电维修"
+          content:""
         },
         theadsName:[
           '序号',
@@ -123,9 +122,6 @@
             message: '已取消删除操作'
           });
         });
-      },
-      addDetail(){
-        this.detailAddFlag = true
       },
       closeReset(){
         this.detailAddFlag= false

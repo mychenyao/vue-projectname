@@ -6,8 +6,10 @@
         <div class="left_info">
           <p class="title">师傅信息</p>
           <ul>
-            <li>姓名：{{dataObj.name}}</li>
-            <li>手机号:
+            <li>师傅姓名：{{dataObj.name}}</li>
+            <li>注册时间：{{dataObj.registerTime|moment('YYYY-MM-DD HH:mm:ss')|placeholder}}</li>
+            <li>认证时间：{{dataObj.certificateTime|moment('YYYY-MM-DD HH:mm:ss')|placeholder}}</li>
+            <li>师傅手机号:
               <span v-if="!this.isEdit()">
                   {{dataObj.phoneNum}}
               </span>
@@ -113,18 +115,7 @@
               <span>
                 {{dataObj.workState|showWorkState}}
               </span>
-              <!--<span v-else>-->
-                <!--<el-select-->
-                  <!--v-model="workStatu.SourceTypeValue" placeholder="请选择"-->
-                  <!--@change="selector2(workStatu,workStatu.SourceType,workStatu.SourceTypeValue)">-->
-                  <!--<el-option-->
-                    <!--v-for="items in workStatu.SourceType"-->
-                    <!--:key="items.value"-->
-                    <!--:value="items.value"-->
-                  <!--&gt;-->
-                  <!--</el-option>-->
-                <!--</el-select>-->
-              <!--</span>-->
+
             </li>
             <li>
               <ul>

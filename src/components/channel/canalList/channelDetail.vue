@@ -139,7 +139,7 @@
                   </td>
                   <td>
                   <a href="javascript:;" @click="copy(item,index)" v-if="!!item.link">复制链接</a>
-                    <a v-if="item.businessQrCode" style="display: inline-block;height:100%" :href="item.businessQrCode" :download="item.businessQrCode">下载二维码</a>
+                    <a v-if="item.wechatQrCode" style="display: inline-block;height:100%" :href="item.wechatQrCode" target="_black" download="图片">下载二维码</a>
                     <a href="javascript:;" style="display: inline-block;height:100%" @click="handleDelete(index,item)">删除</a>
                   </td>
                 </tr>

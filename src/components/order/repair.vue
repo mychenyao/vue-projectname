@@ -1,4 +1,5 @@
 <template>
+                                    <!--返修工单-->
   <div id="app">
     <!--导航栏-->
     <!--导航栏结束-->
@@ -144,7 +145,9 @@
             <td>
               {{index+1}}
             </td>
-           
+              <td>
+                {{item.masterName||'无'}}
+              </td>
             <td>
               {{item.mainOrderId}}
             </td>
@@ -630,8 +633,9 @@
         selectorBehindObj: {},
         theadsName: [
           '序号',
+          '师傅姓名',
           '返修单号',
-        
+
 //          '用户编号',
           '联系人',
           '联系人手机号',

@@ -202,14 +202,14 @@
         potionValueId:'',
         inputs:[
           {
-            name:"姓名",
+            name:"师傅姓名",
             key:"name",
             isText:false,
             errorContent:"info",
             value:""
           }, {
             isText:false,
-            name:"手机号",
+            name:"师傅手机号",
             key:"phoneNum",
             errorContent:"info",
             value:""
@@ -422,7 +422,6 @@
         this.$http.get(url).then(r=>{
           let data=r.data;
           this.areaoptions1 = data.result;
-          console.log(this.areaoptions1);
         })
       },
       checkIdIn(obj,id){

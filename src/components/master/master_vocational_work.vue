@@ -12,13 +12,7 @@
             v-model="userName">
           </el-input>
         </div>
-        <div class="list">
-          师傅编号 :
-          <el-input
-            placeholder="请输入内容"
-            v-model="unmber">
-          </el-input>
-        </div>
+
         <div class="list">
           师傅手机号 :
           <el-input
@@ -91,12 +85,15 @@
             <td>
               {{index+1}}
             </td>
-            <td>
-              {{item.id|placeholder}}
-            </td>
+            <td>{{item.name|placeholder}}</td>
+            <td>{{item.phoneNum|placeholderTel}}</td>
+            <td>{{item.completeCount|placeholder}}</td>
+            <td>{{item.waitService|placeholder}}</td>
+
             <td>
               {{item.city|placeholder}}
             </td>
+
             <td>
               {{item.allOrderCount}}
             </td>
@@ -214,19 +211,18 @@
         //<!--禁用启用end-->
         //<!--搜索框筛选数据start-->
         userName:"", //姓名
-        unmber:"",//师傅编号
         telBind:'',   //绑定手机
         areaoptions1: [],
         labeloptions2: [],
         city: {
-          name: "所属城市",
+          name: "服务城市",
           key: "cityId",
           SourceTypeValue: '', //选中后的
           SourceType: []
         },
         optionList: [
           {
-            name: "师傅类型",
+            name: "师傅类别",
             key: "type",
             SourceTypeValue: '',
             SourceType: [
@@ -279,13 +275,16 @@
         checked:false,
         theadsName:[
           '序号',
-          '师傅编号',
-          '城市',
-          '总单量',
+          '师傅姓名',
+          '师傅手机号',
+          '已完成',
+          '待服务',
+          '服务城市',
+          '总接单量',
           '准时率',
           '完工率',
           '平均分',
-          '师傅类型',
+          '师傅类别',
           '近期登陆',
           '状态',
           '操作'
@@ -398,7 +397,6 @@
         return {params: {
           "pageNo":JSON.stringify(this.showPages),
           "pageSize":JSON.stringify(this.currentPageSize),
-          "id":this.unmber,
           "name":this.userName,
           "phoneNum":this.telBind,
           "state":this.selectorBehindObj.state,
