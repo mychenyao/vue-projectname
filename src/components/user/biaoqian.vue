@@ -109,6 +109,7 @@
              this.$emit("fouShow",false);
           setTimeout(()=>{
             location.reload();
+
           },500)
 
         }
