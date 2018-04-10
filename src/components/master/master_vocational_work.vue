@@ -55,6 +55,10 @@
                        :props="props"
           ></el-cascader>
         </div>
+        <!--<div class="list">-->
+          <!--数据周期 :-->
+          <!--<DatePicker   v-model="selectorBehindObj.date"  type="datetimerange" format="yyyy-MM-dd" placeholder="请选择时间" style="width: 200px"></DatePicker>-->
+        <!--</div>-->
         <div class="list">
           服务工种 :
           <el-cascader id="skill"
@@ -70,7 +74,9 @@
       <div class="btn_inquiry" @click="quiry">
         查询
       </div>
+
       <div class="dable_lsit">
+        <!--<el-button >jjj</el-button>-->
         <table cellSpacing="0px" cellpadding="0">
           <thead>
           <tr class="theads">
@@ -316,7 +322,7 @@
             gradeDownValues:[" state desc "],     //降序
           },
         ],
-        selectorBehindObj:{},
+        selectorBehindObj:{date:["",""]},
         tableListData:{
           pageNo:1,
           pageSize:20,
@@ -394,6 +400,10 @@
         this.getTableList(this.paramsData());
       },
       paramsData(){
+//        数据周期
+//        console.log(this.$moment(this.selectorBehindObj.date[0]).format("YYYY-MM-DD"));
+//        return console.log(this.$moment(this.selectorBehindObj.date[1]).format("YYYY-MM-DD"));
+
         return {params: {
           "pageNo":JSON.stringify(this.showPages),
           "pageSize":JSON.stringify(this.currentPageSize),
@@ -409,6 +419,7 @@
         }}
       },
       getTableList(params){
+
         let url=this.$apidomain+"/masterinfo/findPage";
         this.$http.get(url,params).then(r=>{
           let data=r.data;

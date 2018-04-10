@@ -40,7 +40,7 @@
             <li>
 
             </li>
-            <li>工单类型：{{orderDetailed.data.type|orderType}}</li>
+            <li>工单类型：<span v-if="!!orderDetailed.data">{{orderDetailed.data.type|orderType}}</span><span v-else>无</span> </li>
             <li>服务城市: {{dataObj.city||placeholder}}</li>
             <li>绑定手机号: {{dataObj.userNumber ||placeholder}}</li>
             <li>联系人:                     <!--可编辑-->
@@ -108,7 +108,7 @@
             </li>
             <li>工单渠道:{{dataObj.officialPartnerSubsetName|placeholder}}</li>
             <li>网点名称:{{orderData.site}}</li>
-            <li >师傅类型:{{masterInfos.type|masterType}}</li>
+            <li >师傅类型: <span v-if="!!masterInfos"> {{masterInfos.type|masterType}}</span> <span v-else>无</span></li>
             <li>工单来源:{{dataObj.orderSource | orderSourceShow|placeholder}}</li>
             <li v-if="2==dataObj.orderSource">推荐人手机号:{{dataObj.orderSourceId|placeholder}}</li>
             <li>状态:{{dataObj.orderStatus | orderStateShow|placeholder}}</li>
@@ -876,6 +876,7 @@
         this.$http.get(url2,params).then(r=>{
           let data=r.data;
           if(data.code=="0000"){
+
             this.tableListData = data.result;
             this.showPages = data.result.pageNo;
             this.currentPageSize = data.result.pageSize;
@@ -1229,7 +1230,7 @@
     },
     mounted() {
       this.refuse()
-      console.log(this.orderDetailed);
+
     },
     destroyed(){
       this.$store.commit("edit",false);
