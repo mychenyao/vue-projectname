@@ -6,20 +6,21 @@
          <div class="biaoqian_box">
                 <div class="biaoqian_boxTop">打标签
                 </div>
-                <div class="biaoqian_center">
-                      <input type="text" placeholder="请输入标签名字" v-model="biaoqianName">
-                       <button @click="yesClick">确定</button>
-                </div>
+
                  <div class="biaoqian_number">
                    <ul>
-                     <li v-for="(item,index) in biaoqianArray"><span @click="spanClick(item,index)" 
+                     <li v-for="(item,index) in biaoqianArray"><span @click="spanClick(item,index)"
                         :class="{spanActive:spanIndex == index}"></span>
-                        <input type="text" v-model="item.name" @blur="blurClick(item,index)"/>
+                        <input maxlength=15 minlength=1 type="text" v-model="item.name" @blur.prevent="blurClick(item,index)"/>
                         <span @click="shanchu(item,index)">X</span>
                         <span>({{item.serviceNumber}})</span>
                      </li>
                    </ul>
 
+                 </div>
+                 <div class="biaoqian_center">
+                   <el-input type="text" placeholder="请输入标签名字" v-model="biaoqianName" style="width:15%; margin:2% 2% 1% 2%; height: 38%;"></el-input>
+                   <el-button @click="yesClick" style="width:10%; height: 45%;">确定</el-button>
                  </div>
                  <div class="biaoqian_footer">
                     <div>
@@ -44,21 +45,24 @@
         biaoqianArray : [],//显示的标签
         spanIndex:-1,  //选中的下标
         lableID : "",  // 单选选中的id
-        
+
       }
     },
     created(){
-     
+
       let url = common.apidomain+"/userLabel/findlistUserLabel";
       this.$http.get(url).then((res)=>{
         this.biaoqianArray = res.data.result
       })
     },
     methods:{
+
       yesClick(){ //确定的click
+        let reg = /^[\u4E00-\u9FA5A-Za-z0-9_]{1,15}$/ig;
            if(this.biaoqianName === ""){
                return alert("标签不能为空")
-           }else{
+           }else if(reg.test(this.biaoqianName)){
+
                var objParms ={}
                objParms.name = this.biaoqianName;
                let url = common.apidomain+"/userLabel/saveUserLabel";
@@ -77,23 +81,33 @@
                        }).catch((error)=>{
                           console.log(error)
                        })
-                }
+                }else{
+                   this.biaoqianName= "";
+                   return this.$queryFun.successAlert.call(this," 输入必须为1-15个中文、英文、数字包括下划线")
+           }
       },
       OneYesClick(){
         if(this.spanIndex == -1){
-           return alert("请选择标签")
+          return this.$queryFun.successAlert.call(this,"请选择标签")
         }else{
           let objParmOne = {};
           objParmOne.userIds =this.str;
           objParmOne.labelId =this.lableID;
           let url = common.apidomain+"/userInfo/createUserLabel";
           this.$http.post(url,objParmOne).then((res)=>{
-            console.log(res,99999999999999999)
+            console.log(res)
+            if(res.data.code === "0000"){
+              console.log(res,99999999999999999)
+            }else{
+              return this.$queryFun.successAlert.call(this,res.data.error)
+
+            }
+
           }).catch((error)=>{
-                console.log(error)
+            this.$queryFun.successAlert.call(this,error)  //弹框
           })
              this.$emit("fouShow",false)
-             location.reload();
+//             location.reload();
         }
       },
       spanClick(v,i){
@@ -108,18 +122,19 @@
          this.$http.post(url,shanchuObj).then((res)=>{
            if(res.data.code === "0000"){
              console.log(res)
-               alert("标签删除成功")
+             this.$queryFun.successAlert.call(this,"标签删除成功","1")
                 let url = common.apidomain+"/userLabel/findlistUserLabel";
                       this.$http.get(url).then((res)=>{
                         this.biaoqianArray = res.data.result
                  })
            }
-            
+
           }).catch((error)=>{
                 console.log(error)
           })
       },
       blurClick(v,i){
+//        alert("我是去焦点了")
         let jiaodianOnj = {};
         jiaodianOnj.id = v.id;
         jiaodianOnj.name = v.name;
@@ -127,13 +142,16 @@
          this.$http.post(url,jiaodianOnj).then((res)=>{
            if(res.data.code === "0000"){
              console.log(res)
-               alert("标签修改成功")
+             let reg = /^[\u4E00-\u9FA5A-Za-z0-9_]{1,15}$/ig;
+//             if(res.test())
+             this.$queryFun.successAlert.call(this,"标签修改成功","1")
                 let url = common.apidomain+"/userLabel/findlistUserLabel";
                       this.$http.get(url).then((res)=>{
                         this.biaoqianArray = res.data.result
+
                  })
            }
-            
+
           }).catch((error)=>{
                 console.log(error)
           })
@@ -141,7 +159,7 @@
       },
       quxiao(){
          this.$emit("fouShow",false)
-        
+
       }
     }
   }
@@ -246,7 +264,7 @@
           margin-left: 30%;
           height:45%;
           margin-top:1.5%;
-          border-radius:5px; 
+          border-radius:5px;
           span{
             display: inline-block;
             width: 50%;
@@ -257,7 +275,7 @@
             text-align: center;
             background: #279447;
             color: #ffffff;
-            border-radius:2px; 
+            border-radius:2px;
           }
           span:nth-child(1){
             background: #fff;

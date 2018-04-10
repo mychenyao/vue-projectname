@@ -907,8 +907,8 @@ Vue.filter('adstate',function(input){
         return "时间冲突";
       }
       return "无"
-}); 
- Vue.filter('orderType',function(input){   
+});
+ Vue.filter('orderType',function(input){
     if("0"===input){
         return "正常工单";
       }else if("1"===input){
@@ -924,7 +924,7 @@ Vue.filter('adstate',function(input){
       }
       return "无"
 });
- Vue.filter('orderSource',function(input){   
+ Vue.filter('orderSource',function(input){
       if("1"===input){
         return "渠道下单";
       }else if("2"===input){
@@ -937,12 +937,10 @@ Vue.filter('adstate',function(input){
         return "官网下单";
       }else if(input==="0"){
         return "微信下单"
-      }else if(input==="0"){
-        return "WAP端下单"
       }
       return "无"
 });
-Vue.filter('placeholderSex',function(input){   
+Vue.filter('placeholderSex',function(input){
   if("1"===input){
     return "男";
   }else if("2"===input){

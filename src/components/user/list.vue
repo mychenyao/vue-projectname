@@ -286,13 +286,22 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
                               value: '---请选择---'
                             },{     //来源类型
                               id:"1",
-                              value: '渠道'
+                              value: '渠道下单'
                             }, {
                               id:"2",
                               value: '分享'
                             }, {
+                              id:"3",
+                              value: '平台自建'
+                            }, {
+                              id:"4",
+                              value: '渠道自建'
+                            }, {
+                              id:"5",
+                              value: '官网下单'
+                            }, {
                               id:"0",
-                              value: '无'
+                              value: '微信下单'
                             }
                           ]
                       },
