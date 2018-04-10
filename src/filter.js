@@ -122,6 +122,17 @@ Vue.filter('checkzero',function(input){
     return input;
   };
 });
+Vue.filter('masterType',function(input){
+  if("1"==input){
+    return "自营师傅";
+  }else if("2"==input){
+    return "兼职师傅";
+  }else if("3"==input){
+    return "网点师傅";
+  }
+  return "无"
+});
+
 Vue.filter('mastertype',function(input){
   if("1"==input){
     return "自营师傅";
