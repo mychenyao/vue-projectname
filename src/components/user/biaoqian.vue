@@ -97,7 +97,7 @@
           this.$http.post(url,objParmOne).then((res)=>{
             console.log(res)
             if(res.data.code === "0000"){
-              console.log(res,99999999999999999)
+              this.$queryFun.successAlert.call(this,"添加成功","1")
             }else{
               return this.$queryFun.successAlert.call(this,res.data.error)
 
@@ -106,8 +106,11 @@
           }).catch((error)=>{
             this.$queryFun.successAlert.call(this,error)  //弹框
           })
-             this.$emit("fouShow",false)
-//             location.reload();
+             this.$emit("fouShow",false);
+          setTimeout(()=>{
+            location.reload();
+          },500)
+
         }
       },
       spanClick(v,i){
