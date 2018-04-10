@@ -132,6 +132,7 @@ Vue.filter('masterType',function(input){
   }
   return "无"
 });
+
 Vue.filter('mastertype',function(input){
   if("1"==input){
     return "自营师傅";
