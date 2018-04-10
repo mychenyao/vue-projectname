@@ -2,7 +2,9 @@
 <template>
   <div id="app">
     <div class="container">
-      <h3 class="alert_title">{{isAdd.title}}  <p class="closeX" id="closeX" @click="closeMove"></p></h3>
+      <h3 class="alert_title">{{isAdd.title}}
+        <!--<p class="closeX" id="closeX" @click="closeMove"></p>-->
+      </h3>
       <div class="scrollbar content">
         <div class="left_info">
        <ul>
@@ -122,7 +124,7 @@
               </el-button>
               <el-button @click="createAdvert">
                 生成广告位
-              </el-button> 
+              </el-button>
             </div>
           </div>
           <table  id="table" cellSpacing="0px" cellpadding="0">
