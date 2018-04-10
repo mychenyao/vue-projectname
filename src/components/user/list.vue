@@ -289,7 +289,7 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
                               value: '渠道下单'
                             }, {
                               id:"2",
-                              value: '分享'
+                              value: '好友推荐'
                             }, {
                               id:"3",
                               value: '平台自建'
