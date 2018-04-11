@@ -219,12 +219,7 @@
           this.subsetInfos = data.result.subsetInfos;
         })
       },
-      copy(index){
-          let url = document.getElementsByClassName("link")[index];
-          url.select();
-          document.execCommand("copy");
-          this.$queryFun.successAlert.call(this,"复制成功","1")
-        },
+    
       add(){
         this.isAdd.officialPartnerId = this.isDetailed.id;
         this.isAdd.isShow = true;

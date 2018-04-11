@@ -80,7 +80,7 @@
                     {{item.loginTime|moment('YYYY-MM-DD HH:mm:ss')||placeholder}}
                   </td>
                   <td>
-                    {{item.source||placeholder}}
+                    {{item.channelParent||placeholder}}
                   </td>
                   <td>
                     {{item.sourceType | userSourceType}}
@@ -286,7 +286,7 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
                               value: '---请选择---'
                             },{     //来源类型
                               id:"1",
-                              value: '渠道下单'
+                              value: '渠道入口'
                             }, {
                               id:"2",
                               value: '好友推荐'
@@ -298,10 +298,10 @@ import {getThis,forbiddenMsg,recover,getTableData} from "@/components/commonJs/a
                               value: '渠道自建'
                             }, {
                               id:"5",
-                              value: '官网下单'
+                              value: '官网入口'
                             }, {
                               id:"0",
-                              value: '微信下单'
+                              value: '微信入口'
                             }
                           ]
                       },
