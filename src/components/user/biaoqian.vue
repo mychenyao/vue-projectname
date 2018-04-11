@@ -60,7 +60,7 @@
       yesClick(){ //确定的click
         let reg = /^[\u4E00-\u9FA5A-Za-z0-9_]{1,15}$/ig;
            if(this.biaoqianName === ""){
-               return alert("标签不能为空")
+               return this.$queryFun.successAlert.call(this,"标签不能为空")
            }else if(reg.test(this.biaoqianName)){
 
                var objParms ={}
@@ -76,7 +76,9 @@
                               console.log(this.biaoqianArray)
                             })
                    } else{
-                               alert("添加失败")
+                             this.biaoqianName = "";
+                               return this.$queryFun.successAlert.call(this,res.data.error);
+
                            }
                        }).catch((error)=>{
                           console.log(error)
@@ -95,12 +97,10 @@
           objParmOne.labelId =this.lableID;
           let url = common.apidomain+"/userInfo/createUserLabel";
           this.$http.post(url,objParmOne).then((res)=>{
-            console.log(res)
             if(res.data.code === "0000"){
               this.$queryFun.successAlert.call(this,"添加成功","1")
             }else{
               return this.$queryFun.successAlert.call(this,res.data.error)
-
             }
 
           }).catch((error)=>{

@@ -28,19 +28,17 @@
             <tr>
               <td>上门费（元）</td>
               <td>
-                <el-input style="width:100px;" v-model="tableList.price1" type="number" min="1"></el-input>
+                <el-input style="width:100px;" v-model="tableList.price1" type="number" min="0" ></el-input>
               </td>
             </tr>
             <!---->
             <tr>
               <td>上门费是否叠加</td>
               <td>
-                <el-select placeholder="请选择" v-model="tableList.money">
-                  <el-option  value="是">  </el-option>
+                <el-select placeholder="请选择" style="width:100px;" v-model="data.data.isCollectDoorFee">
+                  <el-option  value="是" >  </el-option>
                   <el-option  value="否" >  </el-option>
                 </el-select>
-                <!--<el-checkbox v-model="checked1" @change="yesChecked"></el-checkbox>是-->
-                <!--<el-checkbox v-model="checked2" @change="noChecked"></el-checkbox>否-->
               </td>
             </tr>
             <tr>
@@ -62,7 +60,7 @@
             <tr>
               <td>质保时间（天）</td>
               <td>
-                <el-input style="width:100px;" v-model="tableList.warranty" type="number" min="0">
+                <el-input style="width:100px;" v-model="tableList.warrantyDatetime" type="number" min="0">
                 </el-input>
               </td>
             </tr>
@@ -100,11 +98,11 @@
         stateNameBtn:["上架","下架"],
         tableList:{
           "fullName":this.data.data.fullName,
-          "money":"", //上门费叠加
+          "isCollectDoorFee":"", //上门费叠加
           "price1":"",
           "isSecondPayment":"",
           "price2":"",
-          "warranty":"" //质保
+          "warrantyDatetime":this.data.data.warrantyDatetime, //质保
 
         },
         selectorBehindObj:{},
@@ -121,7 +119,8 @@
 
     },
     mounted(){
-
+         console.log(this.data,"--------------")
+      console.log(this.tableList,"--------------")
     },
     methods: {
       yesChecked(){
@@ -150,20 +149,16 @@
         }else if(!this.tableList.price2){
           return this.$queryFun.successAlert.call(this,"请填写服务费费","0");
         }
-        if(this.tableList.money == "是"){
-          this.tableList.money = 1;
-        }else{
-          this.tableList.money = 0;
-        }
-        console.log(this.tableList.money)
+
+        console.log(this.tableList.isCollectDoorFee)
         let url=`${this.$apidomain}/serviceinfo/saveServiceAreaInfo`,
 
             params={
               "areaId":this.selectorBehindObj.cityId,
               "areaName":this.city.SourceTypeValue,
-              "isCollectDoorFee": this.tableList.money,
+              "isCollectDoorFee": this.data.data.isCollectDoorFee,
               "price1":this.tableList.price1,
-              "warrantyTime":this.tableList.warranty,
+              "warrantyTime":this.tableList.warrantyDatetime,
               "price2":this.tableList.price2,
               "serviceId":this.tableList.serviceId || this.data.data.id,
               "sort": this.tableList.sort||this.data.data.sort
@@ -213,12 +208,20 @@
           let data=r.data;
           if(this.data.data.areaInfos){
             this.tableList=data.result;
+            this.tableList.warrantyDatetime = this.data.data.areaInfos[0].warrantyDatetime?this.data.data.areaInfos[0].warrantyDatetime:this.data.data.warrantyDatet;
             this.state=data.result.state;
+            console.log(this.tableList)
           }
         })
       },
     },
     created() {
+
+      if(this.data.data.areaInfos[0].isCollectDoorFee == "1"){
+        this.tableList.isCollectDoorFee = "是";
+      }else if(this.data.data.areaInfos[0].isCollectDoorFee == "1"){
+        this.tableList.isCollectDoorFee = "否";
+      }
       this.tableList["isSecondPayment"]=this.data.data.isSecondPayment;
       if(this.data.data.areaInfos){
         this.city.SourceTypeValue=this.data.data.areaInfos[0].areaName;

@@ -14,6 +14,7 @@
       props:["item","name"],
         data() {
             return {
+
             }
         },
         methods: {},

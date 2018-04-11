@@ -7,9 +7,12 @@
   let infoWindow;
   export default {
     mounted: function () {
+
+      console.log('请求地图',res);
         let _this=this;
 //      let url = "http://192.168.20.36:801/mastergps/querymastergps?masterId=201801161638300901317942";
       var url="http://192.168.20.36:802/mastergps/querymastergpslist";
+//      let url=this.$apidomain+"mastergps/querymastergpslist";
       _this.$http.get(url).then(function (res) {
         console.log('请求地图',res);
       });
