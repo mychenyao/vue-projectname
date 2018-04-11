@@ -226,7 +226,7 @@
             alert("密码不能少于6位");
             return;
           }
-          let o = {"id":this.dataObj.id,"password":md5(password)};
+          let o = {"id":this.dataObj.id,"password":md5(value)};
           let urlR=this.$apidomain+"/siteInfo/updatePassword";
           this.$http.post(urlR,o).then(r=>{
             let data=r.data;

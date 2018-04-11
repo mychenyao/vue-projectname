@@ -107,7 +107,8 @@
               </el-button>
             </li>
             <li>工单渠道:{{dataObj.officialPartnerSubsetName|placeholder}}</li>
-            <li>网点名称:{{orderData.site}}</li>
+            <li>网点名称:{{orderData.site||"无"}}</li>
+            <li>完成时间:{{orderData.serviceTimeComplete|moment('YYYY-MM-DD HH:mm:ss')}}</li>
             <li >师傅类型: <span v-if="!!masterInfos"> {{masterInfos.type|masterType}}</span> <span v-else>无</span></li>
             <li>工单来源:{{dataObj.orderSource | orderSourceShow|placeholder}}</li>
             <li v-if="2==dataObj.orderSource">推荐人手机号:{{dataObj.orderSourceId|placeholder}}</li>

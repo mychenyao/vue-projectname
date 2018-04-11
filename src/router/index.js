@@ -16,7 +16,7 @@ if(window.location.href.indexOf('manage.')!==-1){
 }else if(window.location.href.indexOf('channel.')!==-1){
   setSession("KEY", "3");
 }else{
-  setSession("KEY", "3");
+  setSession("KEY", "1");
 }
 function backstage() {
     if(getSession("KEY")[0] === "1") {
