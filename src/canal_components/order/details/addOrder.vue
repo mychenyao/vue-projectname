@@ -247,7 +247,7 @@ import addProduct from "./add_product"
 //        新增产品 start
       addProduct() {
 
-        var flag=true,letTest= new RegExp("^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$");
+        var flag=true,letTest= new RegExp("^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0-9])|(17[0-9]))\\d{8}$");
         this.addOrder.inputs.forEach(v=>{
           if(v.key==="linkmanName"){
             if(v.value===""){

@@ -102,7 +102,6 @@
             }else{
               return this.$queryFun.successAlert.call(this,res.data.error)
             }
-
           }).catch((error)=>{
             this.$queryFun.successAlert.call(this,error)  //弹框
           })

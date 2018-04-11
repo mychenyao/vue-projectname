@@ -62,13 +62,19 @@ Vue.filter('cutout', function (value,size) {
   return value;
 });
 
-Vue.filter('userSourceType', function (value) {
-  if("1"==value){
-    return "渠道";
-  }else if("0"==value){
-    return "无";
-  }else if("2"==value){
-    return "分享";
+Vue.filter('userSourceType', function (input) {
+  if("1"===input){
+    return "渠道入口";
+  }else if("2"===input){
+    return "好友推荐";
+  }else if("3"===input){
+    return "平台自建";
+  }else if("4"===input){
+    return "渠道自建";
+  }else if("5"===input){
+    return "官网入口";
+  }else if(input==="0"){
+    return "微信入口"
   }
   return "无"
 });
